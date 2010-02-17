@@ -93,6 +93,7 @@ my @sigs = (
     ['($x = { })',              'simple hash default'],
     ['($x = 0xf)',              'hex default'],
     ['($x = 0xfF)',             'hex default'],
+    ['(:%x)',                   'named hash'],
 );
 
 my @alternative = (
@@ -117,7 +118,6 @@ my @invalid = (
     ['(%x, %y)',                'multiple hashes'],
     ['(@, $x)',                 'scalar after array placeholder'],
     ['(:@x)',                   'named array'],
-    ['(:%x)',                   'named hash'],
     ['(:@)',                    'named array placeholder'],
     ['(:%)',                    'named hash placeholder'],
     ['(:[@x])',                 'named array ref unpacking without label'],
@@ -137,6 +137,7 @@ my @invalid = (
     ['($x where [ foo ])',      'no block after where'],
     ['($x does $x)',            'invalid param trait'],
     ['(:foo(Str $x))',          'invalid label contents'],
+    ['(:%x, $y)',               'parameter after named hash'],
     # This should probably be valid
     ['($x = $a[0])',            'invalid label contents'],
 );

@@ -276,6 +276,13 @@ sub signature {
 
       my $err_ctx = $self->ppi;
       $param = $self->param;
+
+      if ($greedy && $param && NamedParam->check($param)) {
+          croak "Invalid: Parameter '" . $param->variable_name
+            . "' after greedy '" 
+            . $greedy->variable_name . "'\n";
+      }
+
       $self->error($err_ctx, "Parameter expected")
         if !$param;
 
@@ -487,8 +494,8 @@ sub _param_named {
   my $err_ctx = $self->ppi;
   $param = $self->_param_variable($param);
 
-  $self->error($err_ctx, "Arrays or hashes cannot be named")
-    if $param->{sigil} ne '$';
+  $self->error($err_ctx, "Arrays cannot be named")
+    if $param->{sigil} eq '@';
 
   return $param;
 }
